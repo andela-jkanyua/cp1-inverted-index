@@ -1,19 +1,15 @@
 // public/core.js
-
 function mainController($scope, $http) {
     $scope.formData = {};
-
     $http.get('/api/createindex')   
         .success(function(data) {
             $scope.invertedIndex = data;
             $scope.filelength = Object.keys(data).length;
             console.log(data);
-
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
-
     // when submitting the add form, send the fileDetails{name} to the node API
     $scope.createIndex = function() {
 
@@ -29,7 +25,7 @@ function mainController($scope, $http) {
                 console.log('Error: ' + data);
             });
     };
-
+    //Submit search terms and send FormData {file, SeachTerms} to node API
     $scope.searchIndex = function() {
         $http.post('/api/search', $scope.formData)
             .success(function(data) {
@@ -41,9 +37,6 @@ function mainController($scope, $http) {
                 console.log('Error: ' + data);
             });
     };
-
-
 }
-
 mainController.$inject = ['$scope', '$http'];
 angular.module('cpInvertedIndex', ["ng-file-model"]).controller('mainController', mainController);

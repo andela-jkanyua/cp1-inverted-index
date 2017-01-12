@@ -1,6 +1,5 @@
-
+//declare our dependencies
 let fs = require('fs'),
-	//stemmer = require('stemmer'),
 	natural = require('natural');
 	invertedIndexObj = {},
 	invertedIndex = {},
@@ -13,7 +12,7 @@ let fs = require('fs'),
   * @returns {{}|*}
   */
 let readJsonFileSync = (filePath, encoding='utf8')=>{
-	var file;
+	let file;
 	try{
 		file = fs.readFileSync(filePath, encoding);
 	}
@@ -29,10 +28,6 @@ let readJsonFileSync = (filePath, encoding='utf8')=>{
 		throw new Error('invalid json file')
 	}
 }
-
-
-
-
 
 /**
   * Takes a json filename and creates an Inverted Index
@@ -68,30 +63,33 @@ let createIndex =  (filename)=>{
 	filename = filename[filename.length-1];
 	//assign filename key the inverted index object
 	invertedIndexObj[filename] = invertedIndex;
-	return invertedIndexObj
+	return invertedIndexObj;
 };
+
 /**
   * Takes text and processes to lowercase, remove dublicates & other characters 
   * @param {string} text
   * @returns text
   */
-
 let processText = (text)=>{
 	let normalised = text.replace(/[.[,\]/#!$%\^&\*;:@{}=\-_`~()]/g, '').toLowerCase().split(' ');
 	text = new Set(normalised);
 	text = Array.from(text);
 	return text;
+};
+/**
+ * Normalizes Data
+ * @param {terms} a word to normalize.
+ * @returns string  - normalized word.
+ */
+let search = (term)=>{
+	return natural.PorterStemmer.stem(term);
 }
 /**
  * Searches inverted index
  * @param {words} title - extended parameters.
  * @returns { } searchresults - Object of search results.
  */
-
-let search = (term)=>{
-	return natural.PorterStemmer.stem(term)
-
-}
 let searchIndex = (...words)=>{
 	let file = [],
 		searchResults = {},
@@ -102,11 +100,11 @@ let searchIndex = (...words)=>{
 	for(let [key, value] of Object.entries(invertedIndexObj)){
 		termresults = {};
 		for (term of terms){ 
-			if(term in value){
-				termresults[term] = value[term];
-			}
-			else if(search(term) in value){
+			if(search(term) in value){
 				termresults[search(term)] = value[search(term)];
+			}
+			else if(term in value ){
+				termresults[term] = value[term];
 			}
 			searchResults[key] = termresults;
 		}
@@ -114,12 +112,12 @@ let searchIndex = (...words)=>{
 	if(words[0]===undefined | words[0]===null){
 		return searchResults
 	}
-	else if(file = words[0].toString().match(/^.*json$/)){
+	else if(words[0].toString().match(/^.*json$/)){
+		let file = words[0].toString().match(/^.*json$/)
 		if(file in searchResults){
 			let s = searchResults;
 			searchResults = {};
 			searchResults[file] = s[file];
-
 		}
 	}
 	return searchResults
@@ -128,8 +126,8 @@ let searchIndex = (...words)=>{
  * Returns Inverted index object.
  */
 let getIndex =  ()=>{
-	return invertedIndexObj
-}
+	return invertedIndexObj;
+};
 
 //export values 
 exports.createIndex = createIndex;

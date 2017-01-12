@@ -2,18 +2,14 @@
 <html ng-app ="cpInvertedIndex" ng-controller="mainController">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Inverted Index Check POint 1">
     <meta name="author" content="Jimnah Magira">
-
     <title>Inverted Index</title>
-
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="css/blog-home.css" rel="stylesheet">
 
@@ -77,7 +73,8 @@
                 <hr>
                 <hr>
                 <h1>About this App</h1>
-                <p>This Inverted Index allows you to perform quick searches for a number of words. An inverted index consists of a list of all the unique words that appear in any document, and for each word, a list of the documents in which it appears.</p>
+                <p>This app creates inverted index object from an uploaded JSON array of text objects and creates an index from the array. The index allows a user to search for text blocks in the array that contain a specified collection of words.
+                </p>
                 <hr>
 
                 <!-- UPLOAD -->
@@ -99,6 +96,12 @@
                             +
                             </button>&nbsp;&nbsp; {{file}}
                             </th>
+                            <th>
+                                Document 1
+                            </th>
+                            <th>
+                                Document 2
+                            </th>
 
                         </tr>
                         <tr ng-repeat='(term, ind) in termsobject' ng-hide="termhide">
@@ -106,8 +109,8 @@
                             {{term}}
                             </td>
 
-                            <td>{{ ind.includes(0) ? 'X' : ' ' }}</td>
-                            <td>{{ ind.includes(1) ? 'X' : ' ' }}</td>
+                            <td><b>{{ ind.includes(0) ? 'X' : ' ' }}</b></td>
+                            <td><b>{{ ind.includes(1) ? 'X' : ' ' }}</b></td>
 
 
 
@@ -128,23 +131,17 @@
                     <div class="dropdown">
                        <b>Choose a File</b>
                         &nbsp;<br />
-                        <select ng-model="formData.file" multiple>
-                        <option ng-value =""> All Files </option>
+                        <select style='width:300px' ng-model="formData.file" multiple>
+                        <option ng-value =" "> All Files </option>
                         <option ng-repeat="(key,value) in invertedIndex" ng-value="key">{{key}}</option>
                         </select>
-
-
-
                     </div>
-
                     <br />
-
-
                     <div class="input-group">
 
                         <input type="text" class="form-control" placeholder="Enter search terms" ng-model="formData.searchTerms">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" ng-click="searchIndex()">
+                        <button class="btn btn-default" type="button" ng-click="searchIndex()">
                                 <span class="glyphicon glyphicon-search"></span>
                         </button>
                         </span>
