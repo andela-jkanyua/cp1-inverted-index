@@ -1,0 +1,147 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="cpInvertedIndex">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Node/Angular Inverted Index App</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:50px; }
+        file-list               { margin-bottom:30px; }
+    </style>
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+
+    <script src="core.js"></script>
+    <script src="/bower_components/ng-file-model/ng-file-model.js"></script>
+
+
+</head>
+
+<!-- SET THE CONTROLLER AND GET ALL INVERTEDINDEX -->
+<body ng-controller="mainController">
+
+        <div class="container">
+
+        <!-- HEADER AND INDEX COUNT -->
+        <div class="jumbotron text-center">
+            <h1>Inverted Index <span class="label label-info">{{ filelength }}</span></h1>
+        </div>
+
+        <!-- INVERTEDINDEX LIST -->
+        <div id="invertedIndex-list" class="row">
+            <div class="col-sm-8 ">
+
+                <table class="table table-bordered table-striped">
+
+                  <tbody ng-repeat="(file, termsobject) in invertedIndex" ng-init="termhide=true">
+                    <tr>
+                        <th> 
+                            <button type = "submit" class="btn-xs" ng-click="termhide = ! termhide">
+                            +
+                            </button>&nbsp;&nbsp; {{file}}
+                        </th>
+
+                    </tr>
+                    <tr ng-repeat='(term, ind) in termsobject' ng-hide="termhide">
+                        <td>
+                            {{term}}
+                        </td>
+                        <td>
+                            {{ind}}
+                        </td>
+                      
+
+                    </tr>
+
+                  </tbody>
+
+                </table></div>
+
+            </div>
+        </div>
+
+
+
+        <!-- FORM TO CREATE INDEX -->
+        <div id="invertedIndex-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                    <!-- BIND THIS VALUE TO formData.filedetails IN ANGULAR -->
+   
+                    <!-- createIndex() WILL CREATE NEW INDEX -->
+                    <input type="file" accept=".json" ng-file-model="formData.fileDetails" />
+                        <br /> 
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createIndex()">Create Index
+                    </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- FORM TO SEARCH INDEX -->
+        <br /><br /><br />
+        <div class="jumbotron text-center">
+            <h1>Search Index <span class="label label-info"></span></h1>
+        </div>
+
+        <div class="col-sm-8 " class="row">
+        <form>
+            <h4>File(s)</h4>
+            <div ng-repeat="(file, index) in invertedIndex" class="row-fluid">
+                <label><input type="radio" name="files" ng-value="file" ng-model="formData.file" />&nbsp;<span >{{file}}</span></label>
+            </div>
+
+        <!-- BIND TEXT VALUE TO formData.searchTerms IN ANGULAR -->
+        <!-- searchIndex() WILL SEARCH INDEX -->
+        <input type="text" placeholder="Enter search terms" ng-model="formData.searchTerms" />
+            <br /><br />
+                <button type="submit" class="btn btn-primary btn-lg" ng-click="searchIndex()">Search Index
+                </button>
+        </form>
+        </div>
+        
+        <table class="table table-bordered table-striped">
+            <tbody ng-repeat="(resultFiles, searchObject) in searchIndexes" ng-init="resultsHide=false">
+                <tr>
+                    <th> 
+                        <button type = "submit" class="btn-xs" ng-click="resultsHide = ! resultsHide">
+                            +
+                        </button>
+                    </th>
+                    <th>
+                        {{resultFiles}}
+                    </th>
+                    </tr>
+                    <tr ng-repeat="(resultTerm, indice) in searchObject" ng-hide="resultsHide">
+                        <td>
+                            {{resultTerm}}
+                        </td>
+                        
+                        <td>
+                            {{indice}}
+                        </td>
+
+                       </tr>
+
+                  </tbody>
+
+                </table>
+            </div>
+        </div>       
+
+    </div>
+</body>
+</html>
