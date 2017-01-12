@@ -1,5 +1,3 @@
-[![Heroku](https://heroku-badge.herokuapp.com/?app=cp1-inverted-index)]
-
 [![Build Status](https://travis-ci.org/andela-jkanyua/cp1-inverted-index.svg?branch=develop)](https://travis-ci.org/andela-jkanyua/cp1-inverted-index)
 
 # Inverted Index
@@ -16,6 +14,9 @@
 ## Running Tests
 1. Run tests by typing ```$gulp tests``` on project root
 2. Alternatively tell jasmine to run tests for you by tying ```$jasmine```
+
+## Live Demo
+**_Live Demo at:  [Inverted Index](https://cp1-inverted-index.herokuapp.com/)_**
 
 ## Contributing
 1. Fork it!
