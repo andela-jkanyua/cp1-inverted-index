@@ -1,5 +1,4 @@
 // public/core.js
-var cpInvertedIndex = angular.module('cpInvertedIndex',  ["ng-file-model"]);
 
 function mainController($scope, $http) {
     $scope.formData = {};
@@ -45,3 +44,6 @@ function mainController($scope, $http) {
 
 
 }
+
+mainController.$inject = ['$scope', '$http'];
+angular.module('cpInvertedIndex', ["ng-file-model"]).controller('mainController', mainController);
