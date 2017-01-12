@@ -1,4 +1,6 @@
-![Heroku](https://heroku-badge.herokuapp.com/?app=cp1-inverted-index
+[![Heroku](https://heroku-badge.herokuapp.com/?app=cp1-inverted-index)]
+
+[![Build Status](https://travis-ci.org/andela-jkanyua/cp1-inverted-index.svg?branch=develop)](https://travis-ci.org/andela-jkanyua/cp1-inverted-index)
 
 # Inverted Index
 > Creates inverted index object that takes a JSON array of text objects and creates an index from the array. The index allows a user to search for text blocks in the array that contain a specified collection of words.
