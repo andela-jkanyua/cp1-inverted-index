@@ -16,7 +16,7 @@
     "url": "https://github.com/jimnahmagira/inverted-index/issues"
   },
   "homepage": "https://github.com/jimnahmagira/inverted-index#readme",
-  "devDependencies": {
+  "dependencies": {
     "angular": "^1.6.1",
     "angular-mocks": "^1.6.1",
     "angular-ui-router": "^0.3.2",
