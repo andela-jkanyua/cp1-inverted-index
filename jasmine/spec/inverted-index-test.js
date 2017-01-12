@@ -32,7 +32,7 @@ describe('Inverted Index', ()=>{
   describe('Search Index', ()=> {
     it('checks search index returns correct result', ()=> {
       index.createIndex('uploads/books.json');
-      index.createIndex('uploads/morebooks.json')
+      index.createIndex('uploads/morebooks.json');
       expect(index.searchIndex('books.json','alice')).toEqual({ 'books.json': { 'alice': [0]}})
       expect(index.searchIndex('books.json', 'lord')).toEqual({ 'books.json': { 'lord': [1]}}),
       expect(index.searchIndex('books.json', 'of')).toEqual({ 'books.json': { 'of': [0,1]}}),
