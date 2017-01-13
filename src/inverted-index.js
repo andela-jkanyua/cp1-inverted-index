@@ -1,5 +1,6 @@
 //declare our dependencies
 let fs = require('fs'),
+	entries = require('object.entries'), //Invoke its "shim" method to shim Object.entries if it is unavailable or noncompliant{heroku} 
 	natural = require('natural');
 	invertedIndexObj = {},
 	invertedIndex = {},
@@ -120,8 +121,8 @@ let searchIndex = (...words)=>{
 			searchResults[file] = s[file];
 		}
 	}
-	return searchResults
-}
+	return searchResults;
+};
 /**
  * Returns Inverted index object.
  */
