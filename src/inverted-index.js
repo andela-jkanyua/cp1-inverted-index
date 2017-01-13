@@ -98,7 +98,7 @@ let searchIndex = (...words)=>{
 
 	terms = words.toString().split(',').join(' ');
 	terms = processText(terms);
-	for(let [key, value] of Object.entries(invertedIndexObj)){
+	for(let [key, value] of entries(invertedIndexObj)){
 		termresults = {};
 		for (term of terms){ 
 			if(search(term) in value){
