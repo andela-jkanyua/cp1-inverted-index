@@ -34,14 +34,24 @@
             }
             console.log('File saved!.');
             //return JSON array of the created index
-            res.json(index.createIndex( `${__dirname}/uploads/${req.body.name}` ));
+            try{
+                res.json(index.createIndex(content, req.body.name));
+            }
+            catch(e){
+                console.log(e);
+            }
         });
         console.log( __dirname +'/uploads/' + req.body.name);
     });
 
     //get posted data and search inverted index
     app.post('/api/search', function(req,res){
+        try{
         res.json(index.searchIndex(req.body.file, req.body.searchTerms));
+    }
+    catch(e){
+        console.log(e);
+    }
     });
 
     // load the single view file (angular will handle the page changes on the front-end)
