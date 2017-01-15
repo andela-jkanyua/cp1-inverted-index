@@ -1,6 +1,5 @@
 //declare our dependencies
-let fs = require('fs'),
-	entries = require('object.entries'), //Invoke its "shim" method to shim Object.entries if it is unavailable or noncompliant{heroku} 
+let entries = require('object.entries'), //Invoke its "shim" method to shim Object.entries if it is unavailable or noncompliant{heroku} 
 	natural = require('natural');
 	invertedIndexObj = {},
 	invertedIndex = {},
@@ -12,18 +11,19 @@ let fs = require('fs'),
   * @param {string} filepath, {string} encoding
   * @returns {{}|*}
   */
-let readJsonFileSync = (filePath, encoding='utf8')=>{
+let readJsonFile = (content)=>{
 	let file;
 	try{
-		file = fs.readFileSync(filePath, encoding);
+		file = content;
 	}
 	catch(e){
 		throw new Error('No such file or directory');
 	}
-	if (file.trim().length === 0) {
+	if (Object.keys(file).length === 0) {
 		throw new Error('the file is empty');
 	}
 	try {
+		//console.log(content)
 		return JSON.parse(file);
 	} catch (e) {
 		throw new Error('invalid json file')
@@ -35,11 +35,11 @@ let readJsonFileSync = (filePath, encoding='utf8')=>{
   * @param {string} filename
   * @returns {{}|*}
   */
-let createIndex =  (filename)=>{
+let createIndex =  (content, filename)=>{
 	let term = [];
 	invertedIndex = {};
 	//get json file content assign to index
-	let index = readJsonFileSync(filename);
+	let index = readJsonFile(content);
 	for(let i=0; i<index.length; i++){
 		term = index[i];
 		let terms = term.title + ' ' + term.text;
