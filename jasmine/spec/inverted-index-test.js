@@ -37,11 +37,13 @@ describe('Inverted Index', ()=>{
 
   describe('Populate Index', () =>{
     it('checks if index is created', ()=> {
-      expect(index.createIndex(content, filename)).toBeDefined();
-      expect(index.createIndex(content, filename)).not.toEqual({});
+      index.createIndex(content, filename)
+      expect(index.getIndex()).toBeDefined();
+      expect(index.getIndex()).not.toEqual({});
     });
     it('ensures index is correct', ()=>{
-      let indices = index.createIndex(content, filename);
+      index.createIndex(content, filename);
+      let indices = index.getIndex();
       expect(indices['books.json']['alice']).toEqual([0]);
       expect(indices['books.json']['of']).toEqual([0,1]);
     });

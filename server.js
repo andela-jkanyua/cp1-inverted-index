@@ -38,7 +38,8 @@ app.post('/api/createindex', (req, res) => {
   content = new Buffer((req.body.data.split(',')[1]), 'base64').toString('utf8');
   // return JSON array of the created index
   try {
-    res.json(index.createIndex(content, req.body.name));
+    index.createIndex(content, req.body.name);
+    res.json(index.getIndex());
   } catch (e) {
     return res.status(400).send({
       message: e.message,

@@ -56,7 +56,6 @@ class Index {
     }
     // assign filename key the inverted index object
     this.invertedIndexObj[filename] = this.invertedIndex;
-    return this.invertedIndexObj;
   }
   /**
     * Takes text and processes to lowercase, remove dublicates & other characters
