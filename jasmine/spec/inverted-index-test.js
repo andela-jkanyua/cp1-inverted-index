@@ -1,4 +1,4 @@
-let index = require('../../src/inverted-index.js'),
+let indexFile = require('../../src/inverted-index.js'),
   content = `[
             {
               "title": "Alice in Wonderland",
@@ -14,7 +14,7 @@ let index = require('../../src/inverted-index.js'),
 let filename = 'books.json';
 
 describe('Inverted Index', ()=>{
-  var invertedIndex;
+  index = new indexFile.Index();
 
   describe('Read book data', ()=>{
     it('checks that json file is not empty', ()=> {
@@ -26,7 +26,12 @@ describe('Inverted Index', ()=>{
     it('checks that json file is valid', ()=> {
       expect(()=>{
         index.createIndex('Invalid', filename);
-      }).toThrow(new Error('invalid json file'));
+      }).toThrow(new Error('Invalid json file'));
+    });
+    it('checks that json is valid format', ()=> {
+      expect(()=>{
+        index.createIndex(`[{"key":"value"}]`, filename);
+      }).toThrow(new Error('Bad JSON format'));
     });
   });
 
@@ -55,6 +60,8 @@ describe('Inverted Index', ()=>{
       expect( ()=>{
         index.searchIndex('books.json', ['a', 'alice'], 'book', 'me', ['help', ['me', 'out']]);
       }).not.toThrow(new Error());
+      expect(index.searchIndex('books.json', ['a', 'alice'], 'book', 'me', ['help', ['me', 'out']]))
+      .toEqual({ 'books.json': { 'a': [0,1], 'alice':[0]}})
     });
     it('ensures searchIndex can handle a varied number of arguments', ()=> {
       index.createIndex(content, filename);
