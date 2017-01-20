@@ -51,7 +51,18 @@
 
     <!-- Page Content -->
     <div class="container">
-
+        <div class="alert alert-danger alert-dismissable fade in" ng-if="error">
+            <strong>Error!</strong> {{ error }}.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="alert alert-success alert-dismissable fade in" ng-if="success">
+            <strong>{{ success }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>        
         <div class="row">
 
             <!-- Blog Entries Column -->
@@ -72,7 +83,7 @@
                 <p><span class="glyphicon glyphicon-time"></span> 2017</p>
                 <hr>
                 <h1>About this App</h1>
-                <p>This app creates inverted index object from an uploaded JSON array of text objects and creates an index from the array. The index allows a user to search for text blocks in the array that contain a specified collection of words.
+                <p>This app creates an inverted index object from an uploaded JSON array of text objects and creates an index from the array. The index allows a user to search for text blocks in the array that contain a specified collection of words.
                 </p>
                 <hr>
 
@@ -131,7 +142,7 @@
                        <b>Choose a File</b>
                         &nbsp;<br />
                         <select style='width:300px' ng-model="formData.file" multiple>
-                        <option ng-value =" "> All Files </option>
+                        <option ng-value =" " ng-selected="true"> All Files </option>
                         <option ng-repeat="(key,value) in invertedIndex" ng-value="key">{{key}}</option>
                         </select>
                     </div>
@@ -154,9 +165,13 @@
                                 <button type = "submit" class="btn-xs" ng-click="resultsHide = ! resultsHide">
                                 +
                                 </button>
+                                {{resultFiles}}
                             </th>
                             <th>
-                                {{resultFiles}}
+                               Doc 1 
+                            </th>
+                            <th>
+                               Doc 2 
                             </th>
                             </tr>
                         <tr ng-repeat="(resultTerm, indice) in searchObject" ng-hide="resultsHide">
@@ -164,9 +179,8 @@
                                 {{resultTerm}}
                             </td>
                         
-                            <td>
-                                {{indice}}
-                            </td>
+                            <td><b>{{ indice.includes(0) ? 'X' : ' ' }}</b></td>
+                            <td><b>{{ indice.includes(1) ? 'X' : ' ' }}</b></td>
 
                         </tr>
 
