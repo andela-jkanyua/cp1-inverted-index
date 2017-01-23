@@ -130,7 +130,8 @@
 
                 </table>
 
-            </div>
+        </div>
+    </div>
 
             <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-4">
@@ -168,21 +169,21 @@
                                 {{resultFiles}}
                             </th>
                             <th>
-                               Doc 1 
+                               Indicies found 
                             </th>
-                            <th>
-                               Doc 2 
-                            </th>
+
                             </tr>
                         <tr ng-repeat="(resultTerm, indice) in searchObject" ng-hide="resultsHide">
                             <td>
                                 {{resultTerm}}
                             </td>
-                        
-                            <td><b>{{ indice.includes(0) ? 'X' : ' ' }}</b></td>
-                            <td><b>{{ indice.includes(1) ? 'X' : ' ' }}</b></td>
+                            
+                            <td><b>{{ indice }}</b></td>
+
+                            
 
                         </tr>
+
 
                   </tbody>
 
