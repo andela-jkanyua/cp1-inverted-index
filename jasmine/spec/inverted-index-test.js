@@ -63,7 +63,7 @@ describe('Inverted Index', () => {
       expect(() => {
         index.searchIndex('books.json', ['a', 'alice'], 'book', 'me', ['help', ['me', 'out']]);
       }).not.toThrow(new Error());
-      expect(index.searchIndex('books.json', ['a', 'alice'], 'book', 'me', ['help', ['me', 'out']]))
+      expect(index.searchIndex(null, ['a', 'alice'], 'book', 'me', ['help', ['me', 'out']]))
       .toEqual({ 'books.json': { a: [0, 1], alice: [0] } });
     });
 
