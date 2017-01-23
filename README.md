@@ -9,7 +9,7 @@
 
 ## Usage
 1. Run express server by typing ```$node server.js```
-2. Navigate to ```http://localhost:8080/``` on your browser to create and index on the frontend interface
+2. Navigate to ```http://localhost:8080/``` on your browser to create an index on the frontend interface
 
 ## Running Tests
 1. Run tests by typing ```$gulp tests``` on project root
