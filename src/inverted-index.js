@@ -90,6 +90,7 @@ class Index {
       // using const - no reassignment
       const termResults = {};
       for (const term of terms) {
+        // check if normalized term exits in invertedIndexObj
         if (this.search(term) in value) {
           termResults[this.search(term)] = value[this.search(term)];
         } else if (term in value) {
