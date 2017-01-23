@@ -71,6 +71,12 @@ describe('Inverted Index', () => {
         index.searchIndex('books.json', 'arg1', 'arg2', 'arg3');
       }).not.toThrow(new Error());
     });
+    it('ensures filename is optional', () => {
+      index.createIndex(content, filename);
+      index.createIndex(content, 'morebooks.json');
+      expect(index.searchIndex('alice')).toEqual({ 'books.json': { alice: [0] }, 'morebooks.json': { alice: [0] } });
+      expect(index.searchIndex('books.json', 'alice')).toEqual({ 'books.json': { alice: [0] } });
+    });
   });
 });
 
