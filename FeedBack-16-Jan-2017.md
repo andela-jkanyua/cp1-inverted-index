@@ -1,0 +1,13 @@
+- When user search for non existent index, feedback that token does not exist.
+- Show client message invalid, empty and wrong json file.
+- Add check for invalid keys in json file.
+- Badges same line, coverage to show percentage of code tested.
+- Commented out code should be removed -> gulpfile
+- inverted-index-test.js -> Let over cost declaration
+- inverted-index-test.js space before and after arrow function.
+- inverted-index-test.js use of var line 17, 39
+- inverted-index-test.js blank line line 51
+- inverted-index-test.js attention to detail no space line 50 at the end.
+- inverted-index-test.js add test to ensure varied search terms (arrays, string) returns a valid result.
+- inverted-index-test.js search index filename param should be optional
+
