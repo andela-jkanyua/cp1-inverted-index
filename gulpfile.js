@@ -20,7 +20,7 @@ gulp.task('watch', () => {
   gulp.watch(['./src/**/*.js', './jasmine/spec/**/*.js'], ['lint']);
 });
 
-// configure gul to run jasmine-node tests
+// configure gulp to run jasmine-node tests
 gulp.task('test', () => {
   return gulp.src(['./src/**/*.js', './jasmine/spec/**/*.js'])
   .pipe(jasmineNode({
