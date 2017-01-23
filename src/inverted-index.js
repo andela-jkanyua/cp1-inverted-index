@@ -1,6 +1,5 @@
 // declare our dependencies
 const entries = require('object.entries');
-
 const natural = require('natural');
 
 class Index {
@@ -8,11 +7,12 @@ class Index {
     this.invertedIndexObj = { };
     this.invertedIndex = { };
   }
-  /**
-    * Takes data from a json file an returns the JSON object
-    * @param {string} filepath, {string} encoding
-    * @returns {{}|*}
-    */
+
+ /**
+  * Takes data from a JSON file an returns the JSON object
+  * @param {string} content,
+  * @returns {} the file content as JSON
+  */
   readJsonFile(content) {
     this.file = content;
     if (Object.keys(this.file).length === 0) {
@@ -32,10 +32,10 @@ class Index {
   }
 
   /**
-    * Takes a json filename and creates an Inverted Index
-    * @param {string} filename
-    * @returns {{}|*}
-    */
+  * Takes a JSON filename and creates an Inverted Index
+  * @param {string} content - the JSON file content
+  * @param {string} filename
+  */
   createIndex(content, filename) {
     let term = [];
     this.invertedIndex = {};
@@ -54,16 +54,18 @@ class Index {
         }
       }
     }
-    // assign filename key the inverted index object
+    // assign filename as the key & inverted index object as value
     this.invertedIndexObj[filename] = this.invertedIndex;
   }
+
   /**
-    * Takes text and processes to lowercase, remove dublicates & other characters
-    * @param {string} text
-    * @returns text
-    */
+  * Takes text and processes to lowercase, removes non-alphanumeric characters,
+  * and removes dublicate words
+  * @param {string} text
+  * @returns array normalised Text
+  */
   processText(text) {
-    const normalised = text.replace(/[.[,\]/#!$%^&*;:@{}=\-_`~()]/g, '').toLowerCase().split(' ');
+    const normalised = text.replace(/[^a-z0-9 ]/gi, '').toLowerCase().split(' ');
     let normalisedText = new Set(normalised);
     normalisedText = Array.from(normalisedText);
     return normalisedText;
@@ -77,39 +79,37 @@ class Index {
     return natural.PorterStemmer.stem(term);
   }
   /**
-   * Searches inverted index
-   * @param {words} title - extended parameters.
-   * @returns { } searchresults - Object of search results.
-   */
+  * Searches inverted index
+  * @param {words} title - extended parameters.
+  * @returns { } searchresults - Object of search results.
+  */
   searchIndex(...words) {
     let file = [];
     this.searchResults = {};
-    let termresults = {};
-
     let terms = words.toString().split(',').join(' ');
     terms = this.processText(terms);
     for (const [key, value] of entries(this.invertedIndexObj)) {
-      termresults = {};
+      const termResults = {};
       for (const term of terms) {
         if (this.search(term) in value) {
-          termresults[this.search(term)] = value[this.search(term)];
+          termResults[this.search(term)] = value[this.search(term)];
         } else if (term in value) {
-          termresults[term] = value[term];
+          termResults[term] = value[term];
         }
       }
-      if (Object.keys(termresults).length === 0 && termresults.constructor === Object) {
-        termresults.Results = `No records found for: ${terms.toString().split(',').join(' ')}`;
+      if (Object.keys(termResults).length === 0 && termResults.constructor === Object) {
+        termResults.Results = `No records found for: ${terms.toString().split(',').join(' ')}`;
       }
-      this.searchResults[key] = termresults;
+      this.searchResults[key] = termResults;
     }
     if (words[0] === undefined || words[0] === null) {
       return this.searchResults;
     } else if (words[0].toString().match(/^.*json$/)) {
       file = words[0].toString().match(/^.*json$/);
       if (file in this.searchResults) {
-        const s = this.searchResults;
+        const tempResults = this.searchResults;
         this.searchResults = {};
-        this.searchResults[file] = s[file];
+        this.searchResults[file] = tempResults[file];
       }
     }
     return this.searchResults;
