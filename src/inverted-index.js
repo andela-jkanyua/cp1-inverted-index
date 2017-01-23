@@ -37,12 +37,11 @@ class Index {
   * @param {string} filename
   */
   createIndex(content, filename) {
-    let term = [];
     this.invertedIndex = {};
     // get json file content assign to index
     const index = this.readJsonFile(content);
     for (let i = 0; i < index.length; i += 1) {
-      term = index[i];
+      const term = index[i];
       let terms = `${term.title} ${term.text}`;
       // process text to remove repetition, special characters & (lower case)
       terms = this.processText(terms);
@@ -84,11 +83,11 @@ class Index {
   * @returns { } searchresults - Object of search results.
   */
   searchIndex(...words) {
-    let file = [];
     this.searchResults = {};
     let terms = words.toString().split(',').join(' ');
     terms = this.processText(terms);
     for (const [key, value] of entries(this.invertedIndexObj)) {
+      // using const - no reassignment
       const termResults = {};
       for (const term of terms) {
         if (this.search(term) in value) {
@@ -105,7 +104,7 @@ class Index {
     if (words[0] === undefined || words[0] === null) {
       return this.searchResults;
     } else if (words[0].toString().match(/^.*json$/)) {
-      file = words[0].toString().match(/^.*json$/);
+      const file = words[0].toString().match(/^.*json$/);
       if (file in this.searchResults) {
         const tempResults = this.searchResults;
         this.searchResults = {};
@@ -116,8 +115,8 @@ class Index {
   }
 
   /**
-   * Returns Inverted index object.
-   */
+  * Returns Inverted index object.
+  */
   getIndex() {
     return this.invertedIndexObj;
   }
