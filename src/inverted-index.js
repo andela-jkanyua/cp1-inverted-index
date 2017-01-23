@@ -97,7 +97,7 @@ class Index {
         }
       }
       if (Object.keys(termResults).length === 0 && termResults.constructor === Object) {
-        termResults.Results = `No records found for: ${terms.toString().split(',').join(' ')}`;
+        termResults.Results = 'Sorry, no records found!';
       }
       this.searchResults[key] = termResults;
     }
