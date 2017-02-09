@@ -1,0 +1,7 @@
+- Change use of const termResults = {}; in inverted-index.js searchResult function.
+- Use code blocks or spacing for more readable code -> inverted-index-test.js
+- Branch off from develop and create PR off this branch. 
+
+Other Changes
+- Reworded comments on invertedIndex.js
+- Changed my RegEx in processText() function in inverted-index.js, based of feedback given to other fellows doing the CP.
